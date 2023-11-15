@@ -41,7 +41,7 @@ export const generateSnapshot = async () => {
     logThenDelay(`${index + 1}: ${name}`)
   })
 
-  // fs.writeFileSync(path.resolve(process.cwd(), "output.txt"), data)
+  fs.writeFileSync(path.resolve(process.cwd(), "output.txt"), data)
 }
 
 generateSnapshot()
