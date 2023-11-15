@@ -4,6 +4,7 @@
   "description": "ladder-snapshots",
   "main": "index.js",
   "scripts": {
+    "build": "npx tsc",
     "start": "nodemon index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
