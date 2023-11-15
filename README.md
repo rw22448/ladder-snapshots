@@ -17,3 +17,7 @@ TODO.
 ### Windows
 
 1. Run `index.exe`. Ensure that `input.txt` file containing Summoner Names is located next to the executable.
+
+### Details
+
+- Won't capture snapshots if the player has not played RANKED_TFT (normal ranked ladder).
