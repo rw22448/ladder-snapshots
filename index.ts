@@ -1,22 +1,22 @@
-import express from 'express';
-import axios from 'axios';
-import cors from 'cors';
+import express from "express";
+import axios from "axios";
+import cors from "cors";
 
-require('dotenv').config();
+require("dotenv").config();
 
 const app = express();
 
 app.use(cors());
 
 const PORT = process.env.PORT || 5000;
-const PERSONAL_API_KEY = process.env.PERSONAL_API_KEY || '';
+const PERSONAL_API_KEY = process.env.PERSONAL_API_KEY || "";
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
 
 axios.interceptors.request.use((req) => {
-  req.headers['X-Riot-Token'] = PERSONAL_API_KEY;
+  req.headers["X-Riot-Token"] = PERSONAL_API_KEY;
   return req;
 });
 
