@@ -8,10 +8,10 @@ const app = express();
 
 app.use(cors());
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 const PERSONAL_API_KEY = process.env.PERSONAL_API_KEY || "";
 
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.send("Hello World!");
 });
 
