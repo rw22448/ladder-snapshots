@@ -2,8 +2,6 @@ import express from "express"
 import axios from "axios"
 import cors from "cors"
 
-require("dotenv").config()
-
 const app = express()
 
 app.use(cors())
@@ -20,8 +18,4 @@ axios.interceptors.request.use((req) => {
   return req
 })
 
-// app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
-
-export const generateSnapshot = () => {
-  console.log("generating snapshot")
-}
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
