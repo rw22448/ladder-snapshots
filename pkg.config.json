@@ -1,0 +1,4 @@
+{
+  "main": "ncc/index.js",
+  "bin": "ncc/index.js"
+}
