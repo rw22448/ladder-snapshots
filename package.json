@@ -5,8 +5,8 @@
   "main": "dist/index.ts",
   "scripts": {
     "ncc-build": "ncc build snapshot.ts -o ncc",
-    "pkg-create-mac": "pkg -t latest-macos-x64 ./pkg.config.json -o ncc/index",
-    "pkg-create-windows": "pkg -t latest-win-x64 ./pkg.config.json -o ncc/index",
+    "pkg-create-mac": "pkg -t latest-macos-x64 ./pkg.config.json -o ncc/ladder-snapshot",
+    "pkg-create-windows": "pkg -t latest-win-x64 ./pkg.config.json -o ncc/ladder-snapshot",
     "build": "npx tsc",
     "start": "nodemon index.ts",
     "test": "jest test",
