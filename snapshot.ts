@@ -126,7 +126,7 @@ export const generateSnapshot = async () => {
   const date = new Date()
   const baseFileName = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${(
     "0" + date.getHours()
-  ).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${(
+  ).slice(-2)}-${("0" + date.getMinutes()).slice(-2)}-${(
     "0" + date.getSeconds()
   ).slice(-2)}`
 
