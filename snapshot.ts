@@ -97,8 +97,10 @@ export const generateSnapshot = async () => {
         ) {
           successfulSnapshots.push({
             name: summonerProfile.name ?? "",
-            rank: rankedTftData.rank.toLocaleLowerCase(),
-            tier: rankedTftData.tier.toLocaleLowerCase(),
+            rank: rankedTftData.rank,
+            tier:
+              rankedTftData.tier.charAt(0).toUpperCase() +
+              rankedTftData.tier.slice(1).toLocaleLowerCase(),
             leaguePoints: rankedTftData.leaguePoints,
           })
 
