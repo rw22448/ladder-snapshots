@@ -12,11 +12,11 @@ TODO.
 
 1. Open Terminal.
 2. Navigate to working directory containing `index` script.
-3. Run `./index` to run the script. Ensure that `input.txt` file containing Summoner Names is located next to the executable.
+3. Run `./ladder-snapshot` to run the script. Ensure that `input.txt` file containing Summoner Names, and `.env` file containing the API_KEY, are located next to the executable.
 
 ### Windows
 
-1. Run `index.exe`. Ensure that `input.txt` file containing Summoner Names is located next to the executable.
+1. Run `ladder-snapshot.exe`. Ensure that `input.txt` file containing Summoner Names, and `.env` file containing the API_KEY, are located next to the executable.
 
 ### Details
 
