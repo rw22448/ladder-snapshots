@@ -1,35 +1,34 @@
 import { Snapshot } from "./models/summoner"
 
 const tierMap: Record<string, number> = {
-  challenger: 8,
-  grandmaster: 7,
-  master: 6,
-  diamond: 5,
-  emerald: 4,
-  platinum: 3,
-  gold: 2,
-  silver: 1,
-  bronze: 0,
+  Challenger: 8,
+  Grandmaster: 7,
+  Master: 6,
+  Diamond: 5,
+  Emerald: 4,
+  Platinum: 3,
+  Gold: 2,
+  Silver: 1,
+  Bronze: 0,
 }
 
 const rankMap: Record<string, number> = {
-  iv: 3,
-  iii: 2,
-  ii: 1,
-  i: 0,
+  IV: 3,
+  III: 2,
+  II: 1,
+  I: 0,
 }
 
 const rankedSnapshotCompare = (a: Snapshot, b: Snapshot) => {
   if (
-    (a.tier === "challenger" ||
-      a.tier === "grandmaster" ||
-      a.tier === "master") &&
-    (b.tier === "challenger" || b.tier === "grandmaster" || b.tier === "master")
+    (a.tier === "Challenger" ||
+      a.tier === "Grandmaster" ||
+      a.tier === "Master") &&
+    (b.tier === "Challenger" || b.tier === "Grandmaster" || b.tier === "Master")
   ) {
     return a.leaguePoints - b.leaguePoints
   } else if (a.tier === b.tier) {
     if (a.rank === b.rank) {
-      console.log(a.leaguePoints - b.leaguePoints)
       return a.leaguePoints - b.leaguePoints
     } else {
       return rankMap[a.tier] - rankMap[b.tier]

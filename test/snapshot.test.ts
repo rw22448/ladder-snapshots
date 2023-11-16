@@ -6,14 +6,14 @@ describe(sortRankedSnapshots.name, () => {
     const snapshots: Snapshot[] = [
       {
         name: "Name 1",
-        rank: "i",
-        tier: "diamond",
+        rank: "I",
+        tier: "Diamond",
         leaguePoints: 50,
       },
       {
         name: "Name 2",
-        rank: "i",
-        tier: "diamond",
+        rank: "I",
+        tier: "Diamond",
         leaguePoints: 99,
       },
     ]
@@ -28,14 +28,14 @@ describe(sortRankedSnapshots.name, () => {
     const snapshots: Snapshot[] = [
       {
         name: "Name 1",
-        rank: "i",
-        tier: "challenger",
+        rank: "I",
+        tier: "Challenger",
         leaguePoints: 500,
       },
       {
         name: "Name 2",
-        rank: "i",
-        tier: "challenger",
+        rank: "I",
+        tier: "Challenger",
         leaguePoints: 600,
       },
     ]
@@ -50,26 +50,26 @@ describe(sortRankedSnapshots.name, () => {
     const snapshots: Snapshot[] = [
       {
         name: "Name 1",
-        rank: "i",
-        tier: "gold",
+        rank: "I",
+        tier: "Gold",
         leaguePoints: 99,
       },
       {
         name: "Name 2",
-        rank: "i",
-        tier: "platinum",
+        rank: "I",
+        tier: "Platinum",
         leaguePoints: 50,
       },
       {
         name: "Name 3",
-        rank: "i",
-        tier: "diamond",
+        rank: "I",
+        tier: "Diamond",
         leaguePoints: 1,
       },
       {
         name: "Name 4",
-        rank: "i",
-        tier: "master",
+        rank: "I",
+        tier: "Master",
         leaguePoints: 0,
       },
     ]
@@ -86,26 +86,26 @@ describe(sortRankedSnapshots.name, () => {
     const snapshots: Snapshot[] = [
       {
         name: "Name 1",
-        rank: "i",
-        tier: "gold",
+        rank: "I",
+        tier: "Gold",
         leaguePoints: 0,
       },
       {
         name: "Name 2",
-        rank: "ii",
-        tier: "gold",
+        rank: "II",
+        tier: "Gold",
         leaguePoints: 20,
       },
       {
         name: "Name 3",
-        rank: "iii",
-        tier: "gold",
+        rank: "IIi",
+        tier: "Gold",
         leaguePoints: 40,
       },
       {
         name: "Name 4",
-        rank: "iv",
-        tier: "gold",
+        rank: "IV",
+        tier: "Gold",
         leaguePoints: 60,
       },
     ]
@@ -122,32 +122,32 @@ describe(sortRankedSnapshots.name, () => {
     const snapshots: Snapshot[] = [
       {
         name: "Name 1",
-        rank: "i",
-        tier: "master",
+        rank: "I",
+        tier: "Master",
         leaguePoints: 300,
       },
       {
         name: "Name 2",
-        rank: "i",
-        tier: "grandmaster",
+        rank: "I",
+        tier: "Grandmaster",
         leaguePoints: 200,
       },
       {
         name: "Name 3",
-        rank: "i",
-        tier: "challenger",
+        rank: "I",
+        tier: "Challenger",
         leaguePoints: 150,
       },
       {
         name: "Name 4",
-        rank: "iv",
-        tier: "diamond",
+        rank: "IV",
+        tier: "Diamond",
         leaguePoints: 99,
       },
       {
         name: "Name 5",
-        rank: "i",
-        tier: "master",
+        rank: "I",
+        tier: "Master",
         leaguePoints: 0,
       },
     ]

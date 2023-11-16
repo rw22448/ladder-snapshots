@@ -9,7 +9,7 @@
     "pkg-create-windows": "pkg -t latest-win-x64 ./pkg.config.json -o ncc/ladder-snapshot",
     "build": "npx tsc",
     "start": "nodemon index.ts",
-    "test": "jest test",
+    "test": "jest",
     "copyfiles": "copyfiles input.txt ncc && copyfiles .env ncc"
   },
   "author": "",
