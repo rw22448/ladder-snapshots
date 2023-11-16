@@ -126,11 +126,11 @@ export const generateSnapshot = async () => {
   sortRankedSnapshots(successfulSnapshots)
 
   const date = new Date()
-  const baseFileName = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${(
-    "0" + date.getHours()
-  ).slice(-2)}-${("0" + date.getMinutes()).slice(-2)}-${(
-    "0" + date.getSeconds()
-  ).slice(-2)}`
+  const baseFileName = `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()}-${("0" + date.getHours()).slice(-2)}-${(
+    "0" + date.getMinutes()
+  ).slice(-2)}-${("0" + date.getSeconds()).slice(-2)}`
 
   await fs.promises.mkdir("./output", { recursive: true })
 
