@@ -13,10 +13,10 @@ const tierMap: Record<string, number> = {
 }
 
 const rankMap: Record<string, number> = {
-  IV: 3,
-  III: 2,
-  II: 1,
-  I: 0,
+  IV: 0,
+  III: 1,
+  II: 2,
+  I: 3,
 }
 
 const rankedSnapshotCompare = (a: Snapshot, b: Snapshot) => {
@@ -31,7 +31,7 @@ const rankedSnapshotCompare = (a: Snapshot, b: Snapshot) => {
     if (a.rank === b.rank) {
       return a.leaguePoints - b.leaguePoints
     } else {
-      return rankMap[a.tier] - rankMap[b.tier]
+      return rankMap[a.rank] - rankMap[b.rank]
     }
   } else {
     return tierMap[a.tier] - tierMap[b.tier]

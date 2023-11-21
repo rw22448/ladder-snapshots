@@ -86,31 +86,33 @@ describe(sortRankedSnapshots.name, () => {
     const snapshots: Snapshot[] = [
       {
         name: "Name 1",
-        rank: "I",
+        rank: "IV",
         tier: "Gold",
-        leaguePoints: 0,
+        leaguePoints: 60,
       },
       {
         name: "Name 2",
+        rank: "III",
+        tier: "Gold",
+        leaguePoints: 40,
+      },
+      {
+        name: "Name 3",
         rank: "II",
         tier: "Gold",
         leaguePoints: 20,
       },
       {
-        name: "Name 3",
-        rank: "IIi",
-        tier: "Gold",
-        leaguePoints: 40,
-      },
-      {
         name: "Name 4",
-        rank: "IV",
+        rank: "I",
         tier: "Gold",
-        leaguePoints: 60,
+        leaguePoints: 0,
       },
     ]
 
     sortRankedSnapshots(snapshots)
+
+    console.log(snapshots)
 
     expect(snapshots[0].name).toBe("Name 4")
     expect(snapshots[1].name).toBe("Name 3")
