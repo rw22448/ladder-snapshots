@@ -179,12 +179,11 @@ export const generateSnapshot = async () => {
   ).slice(-2)}-${("0" + date.getSeconds()).slice(-2)}`
 
   await fs.promises.mkdir("./output", { recursive: true })
-
-  var file = fs.createWriteStream(
-    path.resolve(`${process.cwd()}/output`, `${baseFileName}.txt`)
-  )
-
   for (let k = 0; k < successfulSnapshots.length; k++) {
+    var file = fs.createWriteStream(
+      path.resolve(`${process.cwd()}/output`, `${baseFileName}.txt`)
+    )
+
     let snapshot = successfulSnapshots[k]
 
     file.write(
@@ -201,6 +200,7 @@ export const generateSnapshot = async () => {
         `${baseFileName}-failed-names.txt`
       )
     )
+
     for (let l = 0; l < failedNames.length; l++) {
       let failedName = failedNames[l]
 
@@ -211,6 +211,23 @@ export const generateSnapshot = async () => {
         )}`
       )
     }
+  }
+
+  var csvFile = fs.createWriteStream(
+    path.resolve(`${process.cwd()}/output`, `${baseFileName}.csv`)
+  )
+
+  for (let n = 0; n < successfulSnapshots.length; n++) {
+    let snapshot = successfulSnapshots[n]
+
+    csvFile.write(
+      `${n + 1}, ${snapshot.name.split("#")[0]}, ${snapshot.tier} ${
+        snapshot.rank
+      } ${snapshot.leaguePoints}${getMessageByCondition(
+        "\n",
+        n !== successfulSnapshots.length - 1
+      )}`
+    )
   }
 
   console.log("Finished creating snapshot.")
