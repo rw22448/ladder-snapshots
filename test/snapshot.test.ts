@@ -112,8 +112,6 @@ describe(sortRankedSnapshots.name, () => {
 
     sortRankedSnapshots(snapshots)
 
-    console.log(snapshots)
-
     expect(snapshots[0].name).toBe("Name 4")
     expect(snapshots[1].name).toBe("Name 3")
     expect(snapshots[2].name).toBe("Name 2")

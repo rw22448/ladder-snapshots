@@ -1,10 +1,16 @@
-export interface SummonerByNameResponse {
-  id?: string
-  accountId?: string
+export interface AccountDto {
   puuid?: string
-  name?: string
+  gameName?: string
+  tagLine?: string
+}
+
+export interface SummonerDto {
+  accountId?: string
   profileIconId?: number
   revisionDate?: number
+  name?: string
+  id?: string
+  puuid?: string
   summonerLevel?: number
 }
 
@@ -35,8 +41,10 @@ interface MiniSeriesDTO {
   wins?: number
 }
 
-export interface SummonerProfile
-  extends Pick<SummonerByNameResponse, "id" | "name"> {}
+export interface SummonerProfile extends Pick<AccountDto, "puuid"> {
+  name: string
+  id?: string
+}
 
 export interface Snapshot {
   name: string

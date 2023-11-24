@@ -3,9 +3,10 @@ import fs from "fs"
 import path from "path"
 import { exit } from "process"
 import {
+  AccountDto,
   EntriesBySummonerResponse,
   Snapshot,
-  SummonerByNameResponse,
+  SummonerDto,
   SummonerProfile,
 } from "./models/summoner"
 import { sortRankedSnapshots } from "./compare"
@@ -13,9 +14,9 @@ import { sortRankedSnapshots } from "./compare"
 require("dotenv").config()
 
 const PERSONAL_API_KEY: string = process.env.PERSONAL_API_KEY || ""
-const API_HOST: string = "https://oc1.api.riotgames.com"
+const OCE_API_HOST: string = "https://oc1.api.riotgames.com"
+const AMERICAS_API_HOST: string = "https://americas.api.riotgames.com"
 const DEFAULT_API_DELAY: number = 1200 // To prevent hitting Riot API limit
-const SHORT_API_DELAY: number = 50
 
 axios.interceptors.request.use((req) => {
   req.headers["X-Riot-Token"] = PERSONAL_API_KEY
@@ -31,57 +32,99 @@ const sleep = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
+const getMessageByCondition = (string: string, condition: boolean) =>
+  condition ? string : ""
+
 export const generateSnapshot = async () => {
   console.log("Running ladder-snapshot...")
   console.log("Generating snapshot...")
 
-  let data: string = ""
+  let input: string = ""
 
+  // Read input file
   try {
-    data = fs.readFileSync(path.resolve(process.cwd(), "input.txt"), "utf-8")
+    input = fs.readFileSync(path.resolve(process.cwd(), "input.txt"), "utf-8")
   } catch {
     errorAndExit("Error: File 'input.txt' not found in expected position.")
   }
 
-  let names = data.split(/\r?\n/)
-  let successfulSummonerProfiles: SummonerProfile[] = []
+  let names: string[] = input.split(/\r?\n/)
+  let successfulSummonerProfilesWithoutId: SummonerProfile[] = []
+  let successfulSummonerProfilesWithId: SummonerProfile[] = []
   let failedNames: string[] = []
 
-  const delay = names.length <= 50 ? SHORT_API_DELAY : DEFAULT_API_DELAY
+  console.log("Fetching account details...")
 
+  // Fetch account details from API
   for (let i = 0; i < names.length; i++) {
-    let name = names[i].trim()
+    let name: string = names[i].trim()
+    let nameParts: string[] = name.split("#")
+    let riotName: string = nameParts[0]
+    let riotTag: string = nameParts[1]
 
-    if (!!name) {
+    if (!!nameParts.length) {
       await axios({
         method: "get",
-        url: `${API_HOST}/lol/summoner/v4/summoners/by-name/${names[i]}`,
+        url: `${AMERICAS_API_HOST}/riot/account/v1/accounts/by-riot-id/${riotName}/${riotTag}`,
       })
-        .then((response: AxiosResponse<SummonerByNameResponse>) => {
-          successfulSummonerProfiles.push({
-            id: response.data.id,
+        .then((response: AxiosResponse<AccountDto>) => {
+          successfulSummonerProfilesWithoutId.push({
+            puuid: response.data.puuid,
             name,
+            id: "",
           })
 
-          console.log(`Fetched summoner details for ${name}.`)
+          console.log(`Fetched account details for ${name}.`)
         })
         .catch((_error) => {
           console.log(`Failed to fetch summoner details for ${name}.`)
           failedNames.push(name)
         })
-    }
 
-    await sleep(delay)
+      await sleep(DEFAULT_API_DELAY)
+    }
+  }
+
+  console.log("Fetching summoner details...")
+
+  // Fetch summoner details from API
+  for (let m = 0; m < successfulSummonerProfilesWithoutId.length; m++) {
+    let name: string = successfulSummonerProfilesWithoutId[m].name.trim()
+    let puuid: string =
+      successfulSummonerProfilesWithoutId[m].puuid?.trim() ?? ""
+
+    await axios({
+      method: "get",
+      url: `${OCE_API_HOST}/tft/summoner/v1/summoners/by-puuid/${puuid}`,
+    })
+      .then((response: AxiosResponse<SummonerDto>) => {
+        successfulSummonerProfilesWithId.push({
+          puuid: response.data.puuid,
+          name,
+          id: response.data.id,
+        })
+
+        console.log(`Fetched summoner details for ${name}.`)
+      })
+      .catch((_error) => {
+        console.log(`Failed to fetch summoner details for ${name}.`)
+        failedNames.push(name)
+      })
+
+    await sleep(DEFAULT_API_DELAY)
   }
 
   let successfulSnapshots: Snapshot[] = []
 
-  for (let j = 0; j < successfulSummonerProfiles.length; j++) {
-    let summonerProfile = successfulSummonerProfiles[j]
+  console.log("Fetching snapshot details...")
+
+  // Fetch snapshot details from API
+  for (let j = 0; j < successfulSummonerProfilesWithId.length; j++) {
+    let summonerProfile = successfulSummonerProfilesWithId[j]
 
     await axios({
       method: "get",
-      url: `${API_HOST}/tft/league/v1/entries/by-summoner/${summonerProfile.id}`,
+      url: `${OCE_API_HOST}/tft/league/v1/entries/by-summoner/${summonerProfile.id}`,
     })
       .then((response: AxiosResponse<EntriesBySummonerResponse[]>) => {
         const data = response.data
@@ -120,11 +163,14 @@ export const generateSnapshot = async () => {
         failedNames.push(summonerProfile.name ?? "")
       })
 
-    await sleep(delay)
+    await sleep(DEFAULT_API_DELAY)
   }
 
   sortRankedSnapshots(successfulSnapshots)
 
+  console.log("Saving snapshot details...")
+
+  // Create output file
   const date = new Date()
   const baseFileName = `${date.getFullYear()}-${
     date.getMonth() + 1
@@ -137,11 +183,14 @@ export const generateSnapshot = async () => {
   var file = fs.createWriteStream(
     path.resolve(`${process.cwd()}/output`, `${baseFileName}.txt`)
   )
+
   for (let k = 0; k < successfulSnapshots.length; k++) {
     let snapshot = successfulSnapshots[k]
 
     file.write(
-      `${snapshot.name} ${snapshot.tier} ${snapshot.rank} ${snapshot.leaguePoints}\n`
+      `${snapshot.name} ${snapshot.tier} ${snapshot.rank} ${
+        snapshot.leaguePoints
+      }${getMessageByCondition("\n", k !== successfulSnapshots.length - 1)}`
     )
   }
 
@@ -155,7 +204,12 @@ export const generateSnapshot = async () => {
     for (let l = 0; l < failedNames.length; l++) {
       let failedName = failedNames[l]
 
-      file.write(`${failedName}\n`)
+      file.write(
+        `${failedName}${getMessageByCondition(
+          "\n",
+          l !== successfulSnapshots.length - 1
+        )}`
+      )
     }
   }
 
