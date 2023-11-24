@@ -179,11 +179,12 @@ export const generateSnapshot = async () => {
   ).slice(-2)}-${("0" + date.getSeconds()).slice(-2)}`
 
   await fs.promises.mkdir("./output", { recursive: true })
-  for (let k = 0; k < successfulSnapshots.length; k++) {
-    var file = fs.createWriteStream(
-      path.resolve(`${process.cwd()}/output`, `${baseFileName}.txt`)
-    )
 
+  var file = fs.createWriteStream(
+    path.resolve(`${process.cwd()}/output`, `${baseFileName}.txt`)
+  )
+
+  for (let k = 0; k < successfulSnapshots.length; k++) {
     let snapshot = successfulSnapshots[k]
 
     file.write(
