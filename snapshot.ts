@@ -39,6 +39,8 @@ export const generateSnapshot = async () => {
   console.log("Running ladder-snapshot...")
   console.log("Generating snapshot...")
 
+  await sleep(DEFAULT_API_DELAY)
+
   let input: string = ""
 
   // Read input file
