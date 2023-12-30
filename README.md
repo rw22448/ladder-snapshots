@@ -2,7 +2,8 @@
 
 ## Building the app
 
-TODO.
+1. Run `ncc-build`.
+2. Run `pkg-create-mac` or `yarn pkg-create-windows` to create executable shell scripts of the application native to either Mac or Windows platforms.
 
 ## Running the app
 
@@ -10,13 +11,11 @@ TODO.
 
 ### Mac
 
-1. Open Terminal.
-2. Navigate to working directory containing `index` script.
-3. Run `./ladder-snapshot` to run the script. Ensure that `input.txt` file containing Summoner Names, and `.env` file containing the API_KEY, are located next to the executable.
+1. Run `./ladder-snapshots` to run the script. Ensure that `input.txt` file containing Summoner Names, and `.env` file containing the API_KEY, are located next to the executable.
 
 ### Windows
 
-1. Run `ladder-snapshot.exe`. Ensure that `input.txt` file containing Summoner Names, and `.env` file containing the API_KEY, are located next to the executable.
+1. Run `ladder-snapshots.exe`. Ensure that `input.txt` file containing Summoner Names, and `.env` file containing the API_KEY, are located next to the executable.
 
 ### Details
 

@@ -4,9 +4,9 @@
   "description": "ladder-snapshots",
   "main": "dist/index.ts",
   "scripts": {
-    "ncc-build": "ncc build snapshot.ts -o ncc",
-    "pkg-create-mac": "pkg -t latest-macos-x64 ./pkg.config.json -o ncc/ladder-snapshot",
-    "pkg-create-windows": "pkg -t latest-win-x64 ./pkg.config.json -o ncc/ladder-snapshot",
+    "ncc-build": "ncc build snapshots.ts -o ncc",
+    "pkg-create-mac": "pkg -t latest-macos-x64 ./pkg.config.json -o ncc/ladder-snapshots",
+    "pkg-create-windows": "pkg -t latest-win-x64 ./pkg.config.json -o ncc/ladder-snapshots",
     "build": "npx tsc",
     "start": "nodemon index.ts",
     "test": "jest",

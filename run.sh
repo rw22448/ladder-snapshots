@@ -1,1 +1,1 @@
-node ./dist/snapshot
+node ./dist/snapshots
